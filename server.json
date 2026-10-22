@@ -1,0 +1,11 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.ContentWriterco/powietrze-mcp",
+  "description": "Air quality in Poland: live GIOŚ measurements, smog warnings, CAMS forecast and pollen",
+  "repository": { "url": "https://github.com/ContentWriterco/powietrze-mcp", "source": "github" },
+  "version": "0.1.0",
+  "packages": [
+    { "registryType": "npm", "identifier": "powietrze-mcp", "version": "0.1.0", "transport": { "type": "stdio" } }
+  ],
+  "remotes": [{ "type": "streamable-http", "url": "https://powietrze.compabase.com/mcp" }]
+}
