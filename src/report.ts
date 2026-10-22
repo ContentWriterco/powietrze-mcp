@@ -22,7 +22,16 @@ function norm(s: string) {
 
 async function locate(place: string): Promise<{ label: string; lat: number; lon: number }> {
   try {
-    const p = (await geocode(place))[0];
+    const ps = await geocode(place);
+    let p = ps[0];
+    if (ps.length > 1 && p.precision === "town") {
+      // several villages share a name: prefer the one with a GIOŚ station of that name nearby, then a county seat (TERYT …01)
+      const all = await stations();
+      const withStation = ps.find((c) => all.some((s) => norm(s.city) === norm(c.label) && distanceKm(c, s) < 15));
+      p = withStation ?? ps.find((c) => c.teryt?.endsWith("01")) ?? p;
+      const others = ps.filter((c) => c !== p).length;
+      return { label: `${p.label}${others ? ` (inne miejscowości o tej nazwie: ${others} – jeśli chodzi o inną, podaj gminę albo adres)` : ""}`, lat: p.lat, lon: p.lon };
+    }
     return { label: p.label, lat: p.lat, lon: p.lon };
   } catch (e) {
     // fall back to a station town name
