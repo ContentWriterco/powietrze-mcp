@@ -1,6 +1,6 @@
 {
   "name": "powietrze-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server: air quality in Poland for AI agents – live GIOŚ measurements (PM2.5, PM10, NO2, O3) with the Polish air quality index, smog warnings, 3-day CAMS forecast and pollen. No API key.",
   "type": "module",
   "bin": {
